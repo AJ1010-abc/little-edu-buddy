@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Little Edu Buddy - AI Learning for Kids 0-10</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -11,18 +12,40 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Inter', sans-serif;
             line-height: 1.6;
             color: #2c3e50;
             background-color: #f8f9fa;
+            overflow-x: hidden;
+        }
+
+        /* Page Transition Animation */
+        .page-transition {
+            opacity: 1;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Navigation */
         nav {
             background: white;
-            padding: 1.5rem 2rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.08);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -38,24 +61,62 @@
 
         .logo {
             font-size: 1.8rem;
-            font-weight: 700;
+            font-weight: 800;
             color: #0066cc;
             text-decoration: none;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: -0.5px;
         }
 
         .logo span {
             color: #ff6b35;
         }
 
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
         nav a {
-            color: #666;
+            color: #555;
             text-decoration: none;
-            margin-left: 2rem;
-            transition: color 0.3s;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            position: relative;
         }
 
         nav a:hover {
             color: #0066cc;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: #ff6b35;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .cta-nav {
+            background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .cta-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 102, 204, 0.25);
         }
 
         /* Hero Section */
@@ -63,11 +124,20 @@
             background: linear-gradient(135deg, #f5f7fa 0%, #e8f0fe 100%);
             padding: 6rem 2rem;
             text-align: center;
+            animation: fadeIn 0.8s ease-in-out;
         }
 
         .hero .container {
-            max-width: 900px;
+            max-width: 1100px;
             margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-content {
+            text-align: left;
         }
 
         .hero h1 {
@@ -76,19 +146,23 @@
             color: #1a1a2e;
             margin-bottom: 1.5rem;
             line-height: 1.2;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .hero h1 span {
+            color: #ff6b35;
         }
 
         .hero p {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: #555;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
             line-height: 1.8;
         }
 
         .cta-buttons {
             display: flex;
             gap: 1.5rem;
-            justify-content: center;
             flex-wrap: wrap;
             margin-bottom: 3rem;
         }
@@ -96,12 +170,13 @@
         .btn {
             padding: 1rem 2.5rem;
             border-radius: 50px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
             text-decoration: none;
             transition: all 0.3s ease;
-            border: 2px solid transparent;
+            border: none;
             cursor: pointer;
+            font-family: 'Poppins', sans-serif;
         }
 
         .btn-primary {
@@ -111,7 +186,7 @@
 
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 102, 204, 0.3);
+            box-shadow: 0 12px 30px rgba(0, 102, 204, 0.3);
         }
 
         .btn-secondary {
@@ -127,16 +202,11 @@
 
         .hero-image {
             width: 100%;
-            max-width: 500px;
-            height: 300px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            max-width: 450px;
+            height: auto;
             border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 3rem;
-            margin: 0 auto;
+            object-fit: cover;
+            box-shadow: 0 15px 40px rgba(0, 102, 204, 0.15);
         }
 
         /* Container */
@@ -149,6 +219,7 @@
         /* Section Styles */
         section {
             padding: 5rem 2rem;
+            animation: fadeIn 0.8s ease-in-out;
         }
 
         section h2 {
@@ -157,16 +228,18 @@
             color: #1a1a2e;
             margin-bottom: 1rem;
             text-align: center;
+            font-family: 'Playfair Display', serif;
         }
 
         section .subtitle {
             text-align: center;
             color: #666;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             margin-bottom: 3rem;
-            max-width: 600px;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
+            line-height: 1.7;
         }
 
         /* Problem Section */
@@ -176,41 +249,51 @@
 
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
             margin-top: 3rem;
         }
 
         .card {
-            background: #f8f9fa;
+            background: linear-gradient(135deg, #f8f9fa 0%, #f0f5ff 100%);
             padding: 2.5rem;
-            border-radius: 15px;
+            border-radius: 18px;
             text-align: center;
             transition: all 0.3s ease;
             border: 2px solid transparent;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
         }
 
         .card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-10px);
             background: white;
             border-color: #0066cc;
-            box-shadow: 0 15px 35px rgba(0, 102, 204, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 102, 204, 0.15);
         }
 
         .card-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         .card h3 {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: #1a1a2e;
             margin-bottom: 1rem;
+            font-weight: 700;
         }
 
         .card p {
             color: #666;
             font-size: 0.95rem;
+            line-height: 1.6;
         }
 
         /* Solution Section */
@@ -229,39 +312,51 @@
 
         .timeline {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
             margin-top: 3rem;
         }
 
         .timeline-item {
             text-align: center;
-            padding: 2rem;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, #fff5e6 0%, #ffe8cc 100%);
+            border-radius: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(255, 107, 53, 0.15);
         }
 
         .timeline-number {
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             background: linear-gradient(135deg, #0066cc 0%, #ff6b35 100%);
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: bold;
             margin: 0 auto 1.5rem;
+            font-family: 'Playfair Display', serif;
+            box-shadow: 0 8px 20px rgba(0, 102, 204, 0.25);
         }
 
         .timeline-item h3 {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             color: #1a1a2e;
             margin-bottom: 1rem;
+            font-weight: 700;
         }
 
         .timeline-item p {
             color: #666;
             font-size: 0.95rem;
+            line-height: 1.6;
         }
 
         /* Features Section */
@@ -271,22 +366,32 @@
 
         .features-list {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2.5rem;
             margin-top: 3rem;
         }
 
         .feature-item {
-            padding: 0;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f0f5ff 0%, #e8f0fe 100%);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            border-left: 4px solid #0066cc;
+        }
+
+        .feature-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 25px rgba(0, 102, 204, 0.12);
         }
 
         .feature-item h3 {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: #1a1a2e;
             margin-bottom: 0.8rem;
             display: flex;
             align-items: center;
             gap: 1rem;
+            font-weight: 700;
         }
 
         .feature-icon {
@@ -295,8 +400,104 @@
 
         .feature-item p {
             color: #666;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             margin-bottom: 0;
+            line-height: 1.6;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8f0fe 100%);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 18px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #0066cc 0%, #ff6b35 100%);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-12px);
+            border-color: #0066cc;
+            box-shadow: 0 20px 45px rgba(0, 102, 204, 0.2);
+        }
+
+        .pricing-card.featured {
+            border: 2px solid #0066cc;
+            transform: scale(1.05);
+        }
+
+        .age-group {
+            font-size: 1.1rem;
+            color: #ff6b35;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            color: #1a1a2e;
+            font-weight: 800;
+            font-family: 'Playfair Display', serif;
+            margin: 1.5rem 0;
+        }
+
+        .price small {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .price-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .pricing-features {
+            text-align: left;
+            margin: 2rem 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .pricing-features li {
+            list-style: none;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features li::before {
+            content: '✓ ';
+            color: #0066cc;
+            font-weight: bold;
+            margin-right: 0.5rem;
         }
 
         /* Safety Section */
@@ -313,21 +514,30 @@
 
         .safety-card {
             background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            border-left: 4px solid #ff6b35;
+            padding: 2.5rem;
+            border-radius: 15px;
+            border-left: 5px solid #ff6b35;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .safety-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(255, 107, 53, 0.15);
         }
 
         .safety-card h3 {
             color: #1a1a2e;
-            margin-bottom: 0.8rem;
-            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            font-weight: 700;
         }
 
         .safety-card p {
             color: #666;
             font-size: 0.9rem;
             margin-bottom: 0;
+            line-height: 1.6;
         }
 
         /* Impact Section */
@@ -336,7 +546,7 @@
         }
 
         .impact-text {
-            max-width: 700px;
+            max-width: 800px;
             margin: 0 auto;
             text-align: center;
         }
@@ -344,8 +554,55 @@
         .impact-text p {
             font-size: 1.1rem;
             color: #555;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             line-height: 1.8;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8f0fe 100%);
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(0, 102, 204, 0.12);
+            margin-top: 2rem;
+        }
+
+        .contact-info {
+            margin: 2rem 0;
+        }
+
+        .contact-info h3 {
+            font-size: 1.3rem;
+            color: #1a1a2e;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .contact-info p {
+            color: #0066cc;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .contact-info a {
+            color: #0066cc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: #ff6b35;
+            text-decoration: underline;
         }
 
         /* Footer */
@@ -353,43 +610,77 @@
             background: #1a1a2e;
             color: white;
             text-align: center;
-            padding: 2rem;
+            padding: 3rem 2rem;
             margin-top: 3rem;
         }
 
         footer p {
-            margin-bottom: 0;
+            margin-bottom: 0.5rem;
             color: #aaa;
+        }
+
+        footer a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #ff6b35;
+        }
+
+        /* Page Container */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.6s ease-in-out;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
+            .hero .container {
+                grid-template-columns: 1fr;
+            }
+
             .hero h1 {
                 font-size: 2.2rem;
             }
 
             .hero p {
-                font-size: 1.1rem;
+                font-size: 1rem;
             }
 
             section h2 {
                 font-size: 2rem;
             }
 
-            nav a {
-                margin-left: 1rem;
-                font-size: 0.9rem;
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.85rem;
             }
 
             .cta-buttons {
                 flex-direction: column;
-                align-items: center;
             }
 
             .btn {
                 width: 100%;
-                max-width: 300px;
             }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .price {
+                font-size: 2rem;
+            }
+        }
+
+        /* Hidden Page Content */
+        .page-home, .page-pricing, .page-contact {
+            padding: 0;
         }
     </style>
 </head>
@@ -397,189 +688,348 @@
     <!-- Navigation -->
     <nav>
         <div class="container">
-            <a href="#" class="logo">Little Edu <span>Buddy</span></a>
-            <div style="display: flex; gap: 2rem;">
-                <a href="#how">How It Works</a>
-                <a href="#features">Features</a>
-                <a href="#safety">Safety</a>
+            <a href="#" class="logo" onclick="navigateTo('home'); return false;">Little Edu <span>Buddy</span></a>
+            <div class="nav-links">
+                <a href="#" onclick="navigateTo('home'); return false;">Home</a>
+                <a href="#" onclick="navigateTo('pricing'); return false;">Pricing</a>
+                <a href="#" onclick="navigateTo('contact'); return false;">Contact</a>
+                <a href="#" class="cta-nav" onclick="navigateTo('pricing'); return false;">Get Started</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <h1>An AI Growth Guide for Kids 0–10</h1>
-            <p>Safe, personalized learning journeys that understand your child's age, interests, and needs.</p>
-            <div class="cta-buttons">
-                <button class="btn btn-primary">Get Started</button>
-                <button class="btn btn-secondary">Watch Demo</button>
+    <!-- HOME PAGE -->
+    <div id="home" class="page page-home active">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>An AI Growth Guide for <span>Kids 0–10</span></h1>
+                    <p>Safe, personalized learning journeys that understand your child's age, interests, and needs. Screen-aware. Skill-focused. Designed by educators.</p>
+                    <div class="cta-buttons">
+                        <button class="btn btn-primary" onclick="navigateTo('pricing')">View Pricing</button>
+                        <button class="btn btn-secondary">Watch Demo</button>
+                    </div>
+                </div>
+                <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/d0b170cf-4f61-4d0d-a152-a4e503c0ad78" alt="Kids learning with AI" class="hero-image">
             </div>
-            <div class="hero-image">👨‍👩‍👧‍👦</div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Problem Section -->
-    <section class="problem">
-        <div class="container">
-            <h2>The Challenge Parents Face</h2>
-            <p class="subtitle">Today's parents are overwhelmed. YouTube has millions of videos, but which are truly age-appropriate and skill-building?</p>
-            
-            <div class="cards-grid">
-                <div class="card">
-                    <div class="card-icon">🌀</div>
-                    <h3>Endless Random Content</h3>
-                    <p>No structure. No learning path. Just infinite scrolling and distraction.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">❓</div>
-                    <h3>Hard to Judge What's Age-Appropriate</h3>
-                    <p>Is this video safe? Will it help my child learn? Too many guesses, too few answers.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">👁️</div>
-                    <h3>No Visibility Into Progress</h3>
-                    <p>Parents can't see if their child is actually learning or just being entertained.</p>
+        <!-- Problem Section -->
+        <section class="problem">
+            <div class="container">
+                <h2>The Challenge Parents Face</h2>
+                <p class="subtitle">Today's parents are overwhelmed. YouTube has millions of videos, but which are truly age-appropriate and skill-building?</p>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-icon">🌀</div>
+                        <h3>Endless Random Content</h3>
+                        <p>No structure. No learning path. Just infinite scrolling and distraction.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">❓</div>
+                        <h3>Hard to Judge What's Age-Appropriate</h3>
+                        <p>Is this video safe? Will it help my child learn? Too many guesses.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">👁️</div>
+                        <h3>No Visibility Into Progress</h3>
+                        <p>Parents can't see if their child is actually learning or just being entertained.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Solution Section -->
-    <section class="solution">
-        <div class="container">
-            <h2>Meet Little Edu Buddy</h2>
-            <p class="subtitle">An AI co-pilot that understands your child—and builds real learning journeys, not screen addiction.</p>
-            
-            <div class="cards-grid">
-                <div class="card">
-                    <div class="card-icon">🎯</div>
-                    <h3>Personalized Pathways</h3>
-                    <p>Our AI learns your child's age, interests, and abilities—then designs a custom learning journey.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">📚</div>
-                    <h3>Activity Library</h3>
-                    <p>Curated videos + offline guided tasks. Learning that balances screen time with real-world play.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">🤖</div>
-                    <h3>Adaptive AI</h3>
-                    <p>Give us quick feedback. Our AI watches what works and adapts—every single day.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">📊</div>
-                    <h3>Parent Dashboard</h3>
-                    <p>See progress in plain language: skill growth, engagement, and recommended next steps.</p>
+        <!-- Solution Section -->
+        <section class="solution">
+            <div class="container">
+                <h2>Meet Little Edu Buddy</h2>
+                <p class="subtitle">An AI co-pilot that understands your child—and builds real learning journeys, not screen addiction.</p>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-icon">🎯</div>
+                        <h3>Personalized Pathways</h3>
+                        <p>Our AI learns your child's age, interests, and abilities—then designs a custom journey.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📚</div>
+                        <h3>Activity Library</h3>
+                        <p>Curated videos + offline guided tasks. Learning that balances screen time with real-world play.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🤖</div>
+                        <h3>Adaptive AI</h3>
+                        <p>Quick feedback loops. Our AI watches what works and adapts—every single day.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📊</div>
+                        <h3>Parent Dashboard</h3>
+                        <p>See progress in plain language: skill growth, engagement, and next steps.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- How It Works -->
-    <section class="how-it-works" id="how">
-        <div class="container">
-            <h2>How It Works</h2>
-            <p class="subtitle">Three simple steps to personalized learning</p>
-            
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-number">1</div>
-                    <h3>Tell Us About Your Child</h3>
-                    <p>Age, interests, language preference, and learning goals. We listen.</p>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-number">2</div>
-                    <h3>We Design a Daily Journey</h3>
-                    <p>Videos + guided offline activities, tailored to your child's stage.</p>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-number">3</div>
-                    <h3>We Learn & Adapt</h3>
-                    <p>You share feedback. Our AI evolves. Progress compounds every week.</p>
+        <!-- How It Works -->
+        <section class="how-it-works">
+            <div class="container">
+                <h2>How It Works</h2>
+                <p class="subtitle">Three simple steps to personalized learning</p>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-number">1</div>
+                        <h3>Tell Us About Your Child</h3>
+                        <p>Age, interests, language preference, and learning goals. We listen carefully.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-number">2</div>
+                        <h3>We Design a Daily Journey</h3>
+                        <p>Videos + offline activities, tailored to your child's stage. No distractions.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-number">3</div>
+                        <h3>We Learn & Adapt</h3>
+                        <p>You share feedback. Our AI evolves. Progress compounds every week.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="container">
-            <h2>Why Choose Little Edu Buddy?</h2>
-            <p class="subtitle">Built with educators, psychologists, and parents in mind</p>
-            
-            <div class="features-list">
-                <div class="feature-item">
-                    <h3><span class="feature-icon">✅</span> Age-Grouped Content</h3>
-                    <p>Separate learning pathways for 0–2, 3–5, 6–8, and 9–10. One-size-fits-none.</p>
-                </div>
-                <div class="feature-item">
-                    <h3><span class="feature-icon">✅</span> Skill-Focused Learning</h3>
-                    <p>Early literacy, numeracy, creativity, motor skills, and socio-emotional growth in one place.</p>
-                </div>
-                <div class="feature-item">
-                    <h3><span class="feature-icon">✅</span> Screen-Time Aware</h3>
-                    <p>AI prompts for offline activities. Learning that respects childhood.</p>
-                </div>
-                <div class="feature-item">
-                    <h3><span class="feature-icon">✅</span> Multilingual Support</h3>
-                    <p>English, Hindi, and regional languages. Learning in the language kids know best.</p>
-                </div>
-                <div class="feature-item">
-                    <h3><span class="feature-icon">✅</span> Printable Activities</h3>
-                    <p>No internet? No problem. Download and print offline task cards.</p>
-                </div>
-                <div class="feature-item">
-                    <h3><span class="feature-icon">✅</span> Parent Insights</h3>
-                    <p>Weekly progress reports. See what your child is learning and where they shine.</p>
+        <!-- Features Section -->
+        <section class="features">
+            <div class="container">
+                <h2>Why Choose Little Edu Buddy?</h2>
+                <p class="subtitle">Built with educators, child psychologists, and parents in mind</p>
+                
+                <div class="features-list">
+                    <div class="feature-item">
+                        <h3><span class="feature-icon">✅</span> Age-Grouped Content</h3>
+                        <p>Separate learning pathways for 0–2, 3–4, 5–7, and 8–10. One-size-fits-none.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3><span class="feature-icon">✅</span> Skill-Focused Learning</h3>
+                        <p>Early literacy, numeracy, creativity, motor skills, and socio-emotional growth.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3><span class="feature-icon">✅</span> Screen-Time Aware</h3>
+                        <p>AI prompts for offline activities. For 0–2, audio-only content—no screens.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3><span class="feature-icon">✅</span> Multilingual Support</h3>
+                        <p>English, Hindi, and regional languages. Learning in the language kids know best.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3><span class="feature-icon">✅</span> Printable Activities</h3>
+                        <p>No internet? No problem. Download and print offline task cards anytime.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3><span class="feature-icon">✅</span> Parent Insights</h3>
+                        <p>Weekly progress reports. See what your child is learning and where they shine.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Safety Section -->
-    <section class="safety" id="safety">
-        <div class="container">
-            <h2>Trust & Safety First</h2>
-            <p class="subtitle">Your child's safety and data privacy are non-negotiable</p>
-            
-            <div class="safety-grid">
-                <div class="safety-card">
-                    <h3>🔒 Curated Content</h3>
-                    <p>Every video is hand-reviewed by educators. No algorithmic rabbit holes. No surprises.</p>
-                </div>
-                <div class="safety-card">
-                    <h3>🚫 Ad-Free Learning</h3>
-                    <p>Zero advertisements in the learning environment. Pure focus on education.</p>
-                </div>
-                <div class="safety-card">
-                    <h3>👨‍👩‍👧 Parental Controls</h3>
-                    <p>Full control over content, time limits, and what data your child generates.</p>
-                </div>
-                <div class="safety-card">
-                    <h3>🔐 Data Privacy</h3>
-                    <p>We never sell data. GDPR-compliant. Your child's learning journey is yours alone.</p>
+        <!-- Safety Section -->
+        <section class="safety">
+            <div class="container">
+                <h2>Trust & Safety First</h2>
+                <p class="subtitle">Your child's safety and data privacy are non-negotiable</p>
+                
+                <div class="safety-grid">
+                    <div class="safety-card">
+                        <h3>🔒 Curated Content</h3>
+                        <p>Every video is hand-reviewed by educators. No algorithmic rabbit holes. No surprises.</p>
+                    </div>
+                    <div class="safety-card">
+                        <h3>🚫 Ad-Free Learning</h3>
+                        <p>Zero advertisements in the learning environment. Pure focus on education.</p>
+                    </div>
+                    <div class="safety-card">
+                        <h3>👨‍👩‍👧 Parental Controls</h3>
+                        <p>Full control over content, time limits, and what data your child generates.</p>
+                    </div>
+                    <div class="safety-card">
+                        <h3>🔐 Data Privacy</h3>
+                        <p>We never sell data. GDPR-compliant. Your child's learning journey is yours alone.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Impact Section -->
-    <section class="impact">
-        <div class="container">
-            <h2>Why This Matters: The Bot for Good Angle</h2>
-            <div class="impact-text">
-                <p>Education inequality is real. Millions of kids globally have no access to quality learning resources. Little Edu Buddy uses AI—often seen as exclusive technology—to democratize personalized education.</p>
-                <p><strong>Our promise:</strong> Every child, regardless of zip code or parent's background, deserves to learn in a way that matches their stage and style. We're building that.</p>
-                <p>Designed with child psychologists. Built for parents. Made for kids. This is AI for good.</p>
-                <button class="btn btn-primary" style="margin-top: 2rem;">Start Your Child's Journey</button>
+        <!-- Impact Section -->
+        <section class="impact">
+            <div class="container">
+                <h2>Why This Matters: The Bot for Good</h2>
+                <div class="impact-text">
+                    <p>Education inequality is real. Millions of kids globally have no access to quality learning resources. Little Edu Buddy uses AI—often seen as exclusive technology—to democratize personalized education.</p>
+                    <p><strong>Our promise:</strong> Every child, regardless of zip code or parent's background, deserves to learn in a way that matches their stage and style.</p>
+                    <p>Designed with child psychologists. Built for parents. Made for kids. This is AI for good.</p>
+                    <button class="btn btn-primary" style="margin-top: 2rem;" onclick="navigateTo('pricing')">Start Your Child's Journey</button>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
+
+    <!-- PRICING PAGE -->
+    <div id="pricing" class="page page-pricing">
+        <section class="pricing">
+            <div class="container">
+                <h2>Simple, Transparent Pricing</h2>
+                <p class="subtitle">Choose the plan that fits your child's age and learning needs</p>
+                
+                <div class="pricing-grid">
+                    <!-- 0-2 Years -->
+                    <div class="pricing-card">
+                        <div class="age-group">🍼 Newborn to 2 Years</div>
+                        <div class="price">₹4,999<small>/month</small></div>
+                        <div class="price-description">Audio-first learning—no screens. Songs, stories, and sound explorations.</div>
+                        <ul class="pricing-features">
+                            <li>Audio library (500+ tracks)</li>
+                            <li>Curated music & stories</li>
+                            <li>Parent tips & activities</li>
+                            <li>No screen exposure</li>
+                            <li>Progress tracking</li>
+                        </ul>
+                        <button class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;">Get Started</button>
+                    </div>
+
+                    <!-- 3-4 Years -->
+                    <div class="pricing-card featured">
+                        <div class="age-group">🎨 Ages 3–4</div>
+                        <div class="price">₹6,999<small>/month</small></div>
+                        <div class="price-description">Mix of videos and activities. Colors, shapes, early language. Recommended!</div>
+                        <ul class="pricing-features">
+                            <li>150+ age-appropriate videos</li>
+                            <li>Daily guided activities</li>
+                            <li>Interactive learning games</li>
+                            <li>Parent dashboard</li>
+                            <li>Printable activity cards</li>
+                            <li>Multilingual support</li>
+                        </ul>
+                        <button class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;">Get Started</button>
+                    </div>
+
+                    <!-- 5-7 Years -->
+                    <div class="pricing-card">
+                        <div class="age-group">📚 Ages 5–7</div>
+                        <div class="price">₹8,999<small>/month</small></div>
+                        <div class="price-description">Deep learning. Early literacy, numeracy, creativity, motor skills.</div>
+                        <ul class="pricing-features">
+                            <li>300+ curated videos</li>
+                            <li>Skill-focused curriculum</li>
+                            <li>Reading & math games</li>
+                            <li>Creative projects</li>
+                            <li>Advanced progress tracking</li>
+                            <li>Video content library</li>
+                        </ul>
+                        <button class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;">Get Started</button>
+                    </div>
+
+                    <!-- 8-10 Years -->
+                    <div class="pricing-card">
+                        <div class="age-group">🚀 Ages 8–10</div>
+                        <div class="price">₹9,999<small>/month</small></div>
+                        <div class="price-description">Advanced learning. Problem-solving, STEM, critical thinking, social skills.</div>
+                        <ul class="pricing-features">
+                            <li>500+ advanced videos</li>
+                            <li>STEM & logic challenges</li>
+                            <li>Project-based learning</li>
+                            <li>Peer collaboration tools</li>
+                            <li>Advanced analytics</li>
+                            <li>Premium content access</li>
+                        </ul>
+                        <button class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;">Get Started</button>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 4rem;">
+                    <p style="font-size: 1.1rem; color: #555;">All plans include:</p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 2rem; max-width: 900px; margin-left: auto; margin-right: auto;">
+                        <div>✅ 30-day free trial</div>
+                        <div>✅ Cancel anytime</div>
+                        <div>✅ Parent support 24/7</div>
+                        <div>✅ Ad-free experience</div>
+                        <div>✅ Data privacy guaranteed</div>
+                        <div>✅ Offline access</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- CONTACT PAGE -->
+    <div id="contact" class="page page-contact">
+        <section class="contact">
+            <div class="container">
+                <h2>Get in Touch</h2>
+                <p class="subtitle">Questions? We'd love to hear from you!</p>
+                
+                <div class="contact-card">
+                    <p style="font-size: 1.1rem; color: #555; margin-bottom: 2rem;">For more details, reach out to our founder:</p>
+                    
+                    <div class="contact-info">
+                        <h3>👋 Palak Jain</h3>
+                        <p>Founder & CEO, Little Edu Buddy</p>
+                    </div>
+
+                    <div class="contact-info">
+                        <h3>📧 Email</h3>
+                        <a href="mailto:palak.pgdm27g@greatlakes.edu.in">palak.pgdm27g@greatlakes.edu.in</a>
+                    </div>
+
+                    <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #eee;">
+                        <p style="color: #666; font-size: 0.95rem;">We typically respond within 24 hours. Feel free to ask about:</p>
+                        <ul style="text-align: left; display: inline-block; color: #666; font-size: 0.9rem; line-height: 1.8;">
+                            <li>✓ Custom pricing for institutions</li>
+                            <li>✓ Bulk subscriptions</li>
+                            <li>✓ Partnership opportunities</li>
+                            <li>✓ Integration with schools</li>
+                            <li>✓ Customized content creation</li>
+                        </ul>
+                    </div>
+
+                    <button class="btn btn-primary" style="margin-top: 2rem; width: 100%; max-width: 300px;" onclick="navigateTo('pricing')">View Pricing Plans</button>
+                </div>
+            </div>
+        </section>
+    </div>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2026 Little Edu Buddy. Empowering kids through personalized AI learning. | Privacy Policy | Terms of Service</p>
+        <p>&copy; 2026 Little Edu Buddy. Empowering kids through personalized AI learning.</p>
+        <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | Designed with ❤️ for families</p>
     </footer>
+
+    <script>
+        function navigateTo(page) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            
+            // Show selected page
+            const pageEl = document.getElementById(page);
+            if (pageEl) {
+                pageEl.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && !href.startsWith('#pricing') && !href.startsWith('#contact')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
