@@ -2,13 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Little Edu Buddy – AI Growth Guide for Kids</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Little Edu Buddy – AI Learning for Kids</title>
   <style>
     :root {
-      --primary: #4f46e5;
-      --secondary: #f59e0b;
-      --bg: #f9fafb;
+      --blue: #3b82f6;
+      --purple: #8b5cf6;
+      --pink: #ec4899;
+      --yellow: #facc15;
+      --green: #22c55e;
+      --bg: #fefefe;
       --text: #1f2937;
       --muted: #6b7280;
     }
@@ -17,21 +20,40 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: "Segoe UI", system-ui, sans-serif;
     }
 
     body {
-      background: var(--bg);
+      background: linear-gradient(to bottom, #f0f9ff, #ffffff);
       color: var(--text);
       line-height: 1.6;
     }
 
+    nav {
+      position: sticky;
+      top: 0;
+      background: white;
+      padding: 16px 10%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      z-index: 100;
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: 600;
+      color: var(--text);
+    }
+
     section {
-      padding: 80px 10%;
+      padding: 90px 10%;
     }
 
     h1, h2, h3 {
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
 
     p {
@@ -40,19 +62,13 @@
 
     .btn {
       display: inline-block;
-      padding: 12px 20px;
-      background: var(--primary);
+      padding: 14px 22px;
+      background: var(--blue);
       color: white;
+      border-radius: 999px;
       text-decoration: none;
-      border-radius: 8px;
       font-weight: 600;
-      margin-right: 10px;
-    }
-
-    .btn.secondary {
-      background: white;
-      color: var(--primary);
-      border: 2px solid var(--primary);
+      margin-top: 16px;
     }
 
     .hero {
@@ -62,164 +78,133 @@
       align-items: center;
     }
 
-    .hero-box {
-      background: white;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    .hero img {
+      width: 100%;
+      border-radius: 24px;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 24px;
+      margin-top: 40px;
     }
 
     .card {
       background: white;
-      padding: 24px;
-      border-radius: 16px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+      padding: 26px;
+      border-radius: 22px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.07);
     }
 
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 30px;
-      margin-top: 40px;
-    }
+    .age-0 { border-top: 6px solid var(--yellow); }
+    .age-3 { border-top: 6px solid var(--pink); }
+    .age-6 { border-top: 6px solid var(--purple); }
+    .age-9 { border-top: 6px solid var(--green); }
 
     footer {
-      background: #111827;
-      color: #d1d5db;
-      padding: 40px 10%;
+      background: #1f2937;
+      color: #e5e7eb;
+      padding: 50px 10%;
       text-align: center;
     }
 
-    footer p {
-      color: #9ca3af;
-    }
+    footer p { color: #9ca3af; }
 
     @media(max-width: 900px) {
-      .hero {
-        grid-template-columns: 1fr;
-      }
+      .hero { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-<!-- HERO SECTION -->
+<nav>
+  <strong>Little Edu Buddy</strong>
+  <div>
+    <a href="#ages">Age Groups</a>
+    <a href="#how">How It Works</a>
+    <a href="#parents">For Parents</a>
+  </div>
+</nav>
+
 <section>
   <div class="hero">
     <div>
-      <h1>Little Edu Buddy</h1>
-      <h2>An AI Growth Guide for Kids (0–10)</h2>
+      <h1>AI Learning That Grows With Your Child</h1>
       <p>
-        Little Edu Buddy is an AI-powered learning companion that understands a child’s age,
-        interests, and development stage to recommend safe, personalized daily activities —
-        both on-screen and off-screen.
+        Little Edu Buddy is a safe, playful AI learning companion for kids aged 0–10.
+        It creates personalized daily activities based on your child’s age, interests,
+        and development stage — on screen and beyond.
       </p>
-      <br />
-      <a href="#how" class="btn">See How It Works</a>
-      <a href="#solution" class="btn secondary">Our Solution</a>
+      <a class="btn" href="#ages">Explore Age Journeys</a>
     </div>
-    <div class="hero-box">
-      <h3>Today’s Learning Journey</h3>
-      <p>Age: 5–6 years</p>
-      <ul>
-        <li>📘 Story-based vocabulary activity</li>
-        <li>🎨 Offline creativity task</li>
-        <li>🔢 Numeracy game (5 minutes)</li>
-      </ul>
-    </div>
+    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf" alt="Kids learning" />
   </div>
 </section>
 
-<!-- PROBLEM -->
-<section>
-  <h2>The Problem</h2>
+<section id="ages">
+  <h2>Learning Journeys by Age</h2>
+  <p>Each age group receives carefully designed activities powered by AI.</p>
+
   <div class="grid">
-    <div class="card">
-      <h3>Overwhelming Content</h3>
-      <p>Parents struggle to filter endless, unstructured online content.</p>
+    <div class="card age-0">
+      <h3>Ages 0–2</h3>
+      <p>Visual stimulation, sound recognition, motor skill prompts, parent-led play.</p>
     </div>
-    <div class="card">
-      <h3>Age Mismatch</h3>
-      <p>Most platforms fail to adapt to a child’s real development stage.</p>
+    <div class="card age-3">
+      <h3>Ages 3–5</h3>
+      <p>Stories, basic numeracy, language development, creativity-based play.</p>
     </div>
-    <div class="card">
-      <h3>No Visibility</h3>
-      <p>Parents don’t know if their child is actually learning or just consuming.</p>
+    <div class="card age-6">
+      <h3>Ages 6–8</h3>
+      <p>Reading confidence, logic games, emotional learning, curiosity challenges.</p>
     </div>
-  </div>
-</section>
-
-<!-- SOLUTION -->
-<section id="solution">
-  <h2>Our AI-Powered Solution</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>Personalized Learning Paths</h3>
-      <p>AI adapts activities based on age, interests, and engagement.</p>
-    </div>
-    <div class="card">
-      <h3>Skill-Based Activities</h3>
-      <p>Literacy, numeracy, creativity, motor skills, and emotional growth.</p>
-    </div>
-    <div class="card">
-      <h3>Parent Insights</h3>
-      <p>Simple progress summaries in plain language.</p>
-    </div>
-    <div class="card">
-      <h3>Safe & Curated</h3>
-      <p>No ads. No unsafe content. Screen-time conscious by design.</p>
+    <div class="card age-9">
+      <h3>Ages 9–10</h3>
+      <p>Problem solving, early critical thinking, goal-based learning paths.</p>
     </div>
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
 <section id="how">
-  <h2>How It Works</h2>
-  <div class="steps">
+  <h2>How Little Edu Buddy Works</h2>
+  <div class="grid">
     <div class="card">
       <h3>1. Understand the Child</h3>
-      <p>Parents input age, interests, language, and goals.</p>
+      <p>Parents share age, interests, language, and learning goals.</p>
     </div>
     <div class="card">
       <h3>2. AI Designs the Journey</h3>
-      <p>Daily activities are generated across key skill areas.</p>
+      <p>Daily micro-activities are curated across key skills.</p>
     </div>
     <div class="card">
-      <h3>3. Learn & Adapt</h3>
-      <p>Feedback helps the AI continuously personalize learning.</p>
+      <h3>3. Adapt & Grow</h3>
+      <p>The AI learns from engagement and adjusts difficulty naturally.</p>
     </div>
   </div>
 </section>
 
-<!-- IMPACT -->
-<section>
-  <h2>Why This Matters</h2>
+<section id="parents">
+  <h2>Built for Parents. Loved by Kids.</h2>
   <div class="grid">
     <div class="card">
-      <h3>Bot for Good</h3>
-      <p>Encourages healthy learning habits beyond passive screen use.</p>
+      <h3>Safe & Ethical</h3>
+      <p>No ads. Curated content. Full parental control.</p>
     </div>
     <div class="card">
-      <h3>Inclusive by Design</h3>
-      <p>Supports multilingual and low-data environments.</p>
+      <h3>Clear Progress</h3>
+      <p>Simple insights into what your child is learning and improving.</p>
     </div>
     <div class="card">
-      <h3>Parent-First Control</h3>
-      <p>Transparency, safety, and ethical AI usage.</p>
+      <h3>Screen-Time Aware</h3>
+      <p>Encourages offline activities and real-world interaction.</p>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <h3>Little Edu Buddy</h3>
-  <p>AI-powered early learning, built responsibly.</p>
+  <p>AI-powered early learning, designed responsibly.</p>
   <p>Case Competition Prototype</p>
 </footer>
 
